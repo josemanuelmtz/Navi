@@ -51,6 +51,11 @@ Para seguir el desarrollo del proyecto y revisar el progreso de las tareas, pued
 ![Sin título](https://github.com/josemanuelmtz/Navi/assets/105257367/912fb12e-2a21-4720-be58-702a16fc0a6c)
 ![Sin título](https://github.com/josemanuelmtz/Navi/assets/105257367/95fb9580-9b05-4c46-819a-7a2c07e8a834)
 
+## Integrantes
+- José Manuel Martínez García
+- Cristian Uriel Camacho Pérez
+- Oscar Ricardo Villegas Martínez
+- Alan Manuel Mendoza Arredondo
 ---
 
 Gracias por su atención. Para cualquier duda o sugerencia, no dude en contactar con el equipo de desarrollo

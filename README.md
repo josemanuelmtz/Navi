@@ -46,6 +46,7 @@ Para seguir el desarrollo del proyecto y revisar el progreso de las tareas, pued
 
 [Trello Board - Medication Reminder for Smartwatch](https://trello.com/invite/b/GvGM95fy/ATTI72d3b2f522cfb91c8284b2b3933c2f97AC43CC52/navi)
 
+## Diseños de la aplicación
 ---
 
 Gracias por su atención. Para cualquier duda o sugerencia, no dude en contactar con el equipo de desarrollo

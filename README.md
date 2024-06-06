@@ -47,6 +47,10 @@ Para seguir el desarrollo del proyecto y revisar el progreso de las tareas, pued
 [Trello Board - Medication Reminder for Smartwatch](https://trello.com/invite/b/GvGM95fy/ATTI72d3b2f522cfb91c8284b2b3933c2f97AC43CC52/navi)
 
 ## Diseños de la aplicación
+![Sin título](https://github.com/josemanuelmtz/Navi/assets/105257367/416e85e1-6ac4-4cad-91ef-a7d8a0a8d26e)
+![Sin título](https://github.com/josemanuelmtz/Navi/assets/105257367/912fb12e-2a21-4720-be58-702a16fc0a6c)
+![Sin título](https://github.com/josemanuelmtz/Navi/assets/105257367/95fb9580-9b05-4c46-819a-7a2c07e8a834)
+
 ---
 
 Gracias por su atención. Para cualquier duda o sugerencia, no dude en contactar con el equipo de desarrollo

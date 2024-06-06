@@ -44,7 +44,7 @@ El objetivo de este proyecto es desarrollar una aplicación de recordatorios de 
 ## Ruta del Tablero con el Acceso por Parte del Docente
 Para seguir el desarrollo del proyecto y revisar el progreso de las tareas, puede acceder a nuestro tablero de gestión en Trello a través del siguiente enlace:
 
-[Trello Board - Medication Reminder for Smartwatch]([https://trello.com/b/your_trello_board_link](https://trello.com/invite/b/GvGM95fy/ATTI72d3b2f522cfb91c8284b2b3933c2f97AC43CC52/navi))
+[Trello Board - Medication Reminder for Smartwatch](https://trello.com/invite/b/GvGM95fy/ATTI72d3b2f522cfb91c8284b2b3933c2f97AC43CC52/navi)
 
 ---
 

@@ -4,6 +4,10 @@
 ## Enunciado de Visión
 El objetivo de este proyecto es desarrollar una aplicación de recordatorios de medicamentos para smartwatches que ayude a los usuarios a gestionar su medicación de manera efectiva y puntual. La aplicación permitirá a los usuarios programar recordatorios, recibir notificaciones y llevar un registro de las dosis tomadas, mejorando así la adherencia al tratamiento y la salud general.
 
+## Hardware Empleado
+- ESP32
+- MAX30102 - Pulso
+
 ## Software Empleado
 - *Lenguaje de Programación*: Dart (usando Flutter)
 - *IDE*: Android Studio, Visual Studio Code

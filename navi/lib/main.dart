@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:navi/config/presentations/screen/recordatorios/recordatorios.dart';
 import 'package:navi/config/presentations/screen/medicamentos/medicamentos.dart';
+import 'package:navi/config/presentations/screen/home/home1_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const RecordatoriosScreen(),
+      home: const Home1Screen(),
       //home: AnadirRecordatoriosScreen(),
     );
   }

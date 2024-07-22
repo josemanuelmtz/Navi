@@ -1,46 +1,87 @@
 import 'package:flutter/material.dart';
 
+const recordatorios = <Map<String, dynamic>>[
+  {'label': 'Recordatorio 1'},
+  {'label': 'Recordatorio 2'},
+  {'label': 'Recordatorio 3'},
+  {'label': 'Recordatorio 4'},
+  {'label': 'Recordatorio 5'},
+];
+
 class RecordatoriosScreen extends StatelessWidget {
+  static const String name = "recordatorios_screen";
+
+  const RecordatoriosScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Recordatorios'),
-        backgroundColor: Colors.teal, // Color de fondo similar
+        title: const Text('Recordatorios'),
+        backgroundColor: Colors.teal[800],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: const _RecordatoriosView(),
+    );
+  }
+}
+
+class _RecordatoriosView extends StatelessWidget {
+  const _RecordatoriosView();
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        children: recordatorios.map((recordatorio) => _RecordatorioCard(
+              label: recordatorio['label'],
+            )).toList(),
+      ),
+    );
+  }
+}
+
+class _RecordatorioCard extends StatelessWidget {
+  final String label;
+
+  const _RecordatorioCard({
+    required this.label,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 2.0,
+      child: Padding(
+        padding: const EdgeInsets.all(10),
         child: Column(
           children: [
-            Card( // Contenedor para los recordatorios
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    for (int i = 1; i <= 5; i++) 
-                      Text('• Recordatorio $i'),
-                  ],
-                ),
+            Align(
+              alignment: Alignment.topRight,
+              child: PopupMenuButton<String>(
+                onSelected: (value) {
+                  switch (value) {
+                    case 'editar':
+                      // Acción para editar
+                      break;
+                    case 'eliminar':
+                      // Acción para eliminar
+                      break;
+                  }
+                },
+                itemBuilder: (BuildContext context) {
+                  return {'editar', 'eliminar'}.map((String choice) {
+                    return PopupMenuItem<String>(
+                      value: choice,
+                      child: Text(choice),
+                    );
+                  }).toList();
+                },
               ),
             ),
-            SizedBox(height: 20), // Espacio entre la tarjeta y los botones
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                ElevatedButton(
-                  onPressed: () {}, 
-                  child: Text('Editar'),
-                ),
-                ElevatedButton(
-                  onPressed: () {}, 
-                  child: Text('Eliminar'),
-                  style: ElevatedButton.styleFrom(
-                    iconColor: Colors.red, // Color rojo para el botón Eliminar
-                  ),
-                ),
-              ],
-            ),
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Text(label),
+            )
           ],
         ),
       ),

@@ -13,15 +13,11 @@ class HeartRateScreen extends StatefulWidget {
 class _HeartRateScreenState extends State<HeartRateScreen> {
   double heartRate = 75.0; // Ritmo cardíaco simulado
 
-  late MqttService _service;
-
   @override
   void initState() {
     super.initState();
-    
-    _service = MqttService('broker.emqx.io');
 
-    _service.obtenerPulsosStream().listen((event) {
+    MqttService.obtenerPulsosStream().listen((event) {
       setState(() {
         // Actualizar el ritmo cardíaco
         heartRate = event;

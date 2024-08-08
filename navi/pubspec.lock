@@ -172,7 +172,7 @@ packages:
     source: hosted
     version: "1.12.0"
   mqtt_client:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: mqtt_client
       sha256: "930a951a748a3feacd57bde9a608740c724f7afb0e1be1ef56f3e1fe9f689cf9"

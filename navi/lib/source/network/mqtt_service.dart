@@ -4,7 +4,7 @@ import 'package:mqtt_client/mqtt_server_client.dart';
 class MqttService {
   final MqttServerClient client;
 
-  MqttService(String server) : client = MqttServerClient(server, '')
+  MqttService(String server) : client = MqttServerClient(server, 'xyz123')
   {
      // Agregar la versión minima del protocolo MQTT
     client.setProtocolV311();
@@ -12,9 +12,13 @@ class MqttService {
     // Tiempo de espera para la conexión
      client.keepAlivePeriod = 20;
 
+     client.port = 1883;
+
+     client.connectTimeoutPeriod = 60;
+
      // Generar un mensaje de conexión
       final connMessage = MqttConnectMessage()
-      .withClientIdentifier('xyz321')
+      .withClientIdentifier('navixyz123')
       .startClean()
       .withWillQos(MqttQos.exactlyOnce);
 
@@ -39,7 +43,7 @@ class MqttService {
 
     }
 
-  Stream<double> obtenerTemperaturaStream() async* {
+  Stream<double> obtenerPulsosStream() async* {
     try{
       await client.connect();
     }

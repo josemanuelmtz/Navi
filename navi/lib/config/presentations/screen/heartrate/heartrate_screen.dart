@@ -21,7 +21,7 @@ class _HeartRateScreenState extends State<HeartRateScreen> {
     
     _service = MqttService('broker.emqx.io');
 
-    _service.obtenerTemperaturaStream().listen((event) {
+    _service.obtenerPulsosStream().listen((event) {
       setState(() {
         // Actualizar el ritmo cardíaco
         heartRate = event;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:navi/source/network/mqtt_service.dart';
 
 class HeartRateScreen extends StatefulWidget {
   const HeartRateScreen({super.key});
@@ -8,7 +9,23 @@ class HeartRateScreen extends StatefulWidget {
 }
 
 class _HeartRateScreenState extends State<HeartRateScreen> {
-  final double heartRate = 75.0; // Ritmo cardíaco simulado
+  double heartRate = 75.0; // Ritmo cardíaco simulado
+
+  late MqttService _service;
+
+  @override
+  void initState() {
+    super.initState();
+    
+    _service = MqttService('broker.emqx.io');
+
+    _service.obtenerTemperaturaStream().listen((event) {
+      setState(() {
+        // Actualizar el ritmo cardíaco
+        heartRate = event;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

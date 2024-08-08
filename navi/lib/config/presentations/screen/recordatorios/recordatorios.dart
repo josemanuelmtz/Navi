@@ -10,6 +10,7 @@ const recordatorios = <Map<String, dynamic>>[
 
 class RecordatoriosScreen extends StatelessWidget {
   static const String routeName = "recordatorios_screen";
+
   const RecordatoriosScreen({super.key});
 
   @override
@@ -19,7 +20,28 @@ class RecordatoriosScreen extends StatelessWidget {
         title: const Text('Recordatorios'),
         backgroundColor: Colors.teal[800],
       ),
-      body: const _RecordatoriosView(),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            Expanded(
+              child: const _RecordatoriosView(),
+            ),
+            const SizedBox(height: 20), // Espacio entre la lista y el botón
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context); // Regresar a la pantalla anterior
+              },
+              child: const Text('Regresar'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.teal, // Color de fondo
+                foregroundColor: Colors.white, // Color del texto
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15), // Padding del botón
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -49,11 +71,23 @@ class _RecordatorioCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 2.0,
+      elevation: 4.0,
+      margin: const EdgeInsets.symmetric(vertical: 8), // Margen entre tarjetas
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12), // Bordes redondeados
+      ),
       child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            Text(
+              label,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             Align(
               alignment: Alignment.topRight,
               child: PopupMenuButton<String>(
@@ -77,10 +111,6 @@ class _RecordatorioCard extends StatelessWidget {
                 },
               ),
             ),
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: Text(label),
-            )
           ],
         ),
       ),

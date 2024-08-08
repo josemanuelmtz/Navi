@@ -35,6 +35,7 @@ class _HeartRateScreenState extends State<HeartRateScreen> {
       appBar: AppBar(
         title: const Text('Ritmo Cardiaco'),
         centerTitle: true,
+        backgroundColor: Colors.teal,
       ),
       body: Center(
         child: Column(
@@ -57,13 +58,23 @@ class _HeartRateScreenState extends State<HeartRateScreen> {
                 ],
               ),
               alignment: Alignment.center,
-              child: Text(
-                '$heartRate BPM',
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.favorite,
+                    size: 50,
+                    color: Colors.white,
+                  ),
+                  Text(
+                    '$heartRate BPM',
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 30),
@@ -72,6 +83,7 @@ class _HeartRateScreenState extends State<HeartRateScreen> {
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
+                color: Colors.teal,
               ),
             ),
             const SizedBox(height: 50),
@@ -80,6 +92,10 @@ class _HeartRateScreenState extends State<HeartRateScreen> {
                 Navigator.pop(context); // Regresar a la pantalla anterior
               },
               child: const Text('Regresar'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.teal,
+                foregroundColor: Colors.white,
+              ),
             ),
           ],
         ),

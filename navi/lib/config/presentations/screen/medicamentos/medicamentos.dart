@@ -20,7 +20,7 @@ class _AnadirRecordatoriosScreenState extends State<AnadirRecordatoriosScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Añadir Recordatorios'),
-        backgroundColor: Colors.tealAccent[400],
+        backgroundColor: Color(0xFF0C7D61),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -31,17 +31,17 @@ class _AnadirRecordatoriosScreenState extends State<AnadirRecordatoriosScreen> {
               controller: _nombreController,
               decoration: InputDecoration(
                 labelText: 'Nombre: ',
-                labelStyle: TextStyle(color: Colors.tealAccent[400]),
+                labelStyle: TextStyle(color: const Color.fromARGB(255, 9, 98, 76)),
                 border: OutlineInputBorder(),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.tealAccent[400]!),
+                  borderSide: BorderSide(color: const Color.fromARGB(255, 9, 98, 76)),
                 ),
               ),
             ),
             SizedBox(height: 16),
             Row(
               children: <Widget>[
-                Text('Cantidad/Docis: $_cantidad'),
+                Text('Cantidad/Dosis: $_cantidad'),
                 IconButton(
                   icon: Icon(Icons.add),
                   onPressed: () {
@@ -68,10 +68,10 @@ class _AnadirRecordatoriosScreenState extends State<AnadirRecordatoriosScreen> {
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       labelText: 'Duración',
-                      labelStyle: TextStyle(color: Colors.tealAccent[400]),
+                      labelStyle: TextStyle(color: const Color.fromARGB(255, 9, 98, 76)),
                       border: OutlineInputBorder(),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.tealAccent[400]!),
+                        borderSide: BorderSide(color: const Color.fromARGB(255, 9, 98, 76)),
                       ),
                     ),
                     onChanged: (value) {
@@ -103,10 +103,10 @@ class _AnadirRecordatoriosScreenState extends State<AnadirRecordatoriosScreen> {
               controller: _cicloController,
               decoration: InputDecoration(
                 labelText: 'Ciclo (Horas)',
-                labelStyle: TextStyle(color: Colors.tealAccent[400]),
+                labelStyle: TextStyle(color: const Color.fromARGB(255, 9, 98, 76)),
                 border: OutlineInputBorder(),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.tealAccent[400]!),
+                  borderSide: BorderSide(color: const Color.fromARGB(255, 9, 98, 76)),
                 ),
               ),
               keyboardType: TextInputType.number,
@@ -122,6 +122,7 @@ class _AnadirRecordatoriosScreenState extends State<AnadirRecordatoriosScreen> {
                   child: Text('Guardar'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.tealAccent[400],
+                    foregroundColor: Colors.white, // Color del texto del botón
                   ),
                 ),
                 ElevatedButton(
@@ -131,9 +132,23 @@ class _AnadirRecordatoriosScreenState extends State<AnadirRecordatoriosScreen> {
                   child: Text('Cancelar'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.redAccent,
+                    foregroundColor: Colors.white, // Color del texto del botón
                   ),
                 ),
               ],
+            ),
+            SizedBox(height: 16),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context); // Regresar a la pantalla anterior
+                },
+                child: Text('Regresar'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.teal, // Color de fondo del botón
+                  foregroundColor: Colors.white, // Color del texto del botón
+                ),
+              ),
             ),
           ],
         ),

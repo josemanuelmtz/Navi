@@ -51,7 +51,7 @@ class MqttService {
     // Verificar si el cliente se conecto correctamente
     if(client.connectionStatus?.state == MqttConnectionState.connected){
       // Generar la suscripción al topico
-      client.subscribe('navio/pulsos', MqttQos.exactlyOnce);
+      client.subscribe('navi/pulsos', MqttQos.exactlyOnce);
 
 
       await for (final c in client.updates!) {

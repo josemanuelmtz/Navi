@@ -9,8 +9,7 @@ const recordatorios = <Map<String, dynamic>>[
 ];
 
 class RecordatoriosScreen extends StatelessWidget {
-  static const String name = "recordatorios_screen";
-
+  static const String routeName = "recordatorios_screen";
   const RecordatoriosScreen({super.key});
 
   @override
@@ -33,8 +32,8 @@ class _RecordatoriosView extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: recordatorios.map((recordatorio) => _RecordatorioCard(
-              label: recordatorio['label'],
-            )).toList(),
+          label: recordatorio['label'],
+        )).toList(),
       ),
     );
   }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class HeartRateScreen extends StatefulWidget {
+  static const String routeName = "heart_rate_screen";
+
   const HeartRateScreen({super.key});
 
   @override
@@ -25,18 +27,18 @@ class _HeartRateScreenState extends State<HeartRateScreen> {
             Container(
               width: 150,
               height: 150,
-                decoration: BoxDecoration(
+              decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.red,
                 boxShadow: [
                   BoxShadow(
-                  color: Colors.black.withOpacity(0.3),
-                  spreadRadius: 2,
-                  blurRadius: 5,
-                  offset: const Offset(0, 3),
+                    color: Colors.black.withOpacity(0.3),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: const Offset(0, 3),
                   ),
                 ],
-                ),
+              ),
               alignment: Alignment.center,
               child: Text(
                 '$heartRate BPM',

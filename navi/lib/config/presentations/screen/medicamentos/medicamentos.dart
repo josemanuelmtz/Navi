@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AnadirRecordatoriosScreen extends StatefulWidget {
+  static const String routeName = "anadir_recordatorios_screen";
+
   @override
   _AnadirRecordatoriosScreenState createState() => _AnadirRecordatoriosScreenState();
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:navi/config/presentations/screen/recordatorios/recordatorios.dart';
 import 'package:navi/config/presentations/screen/medicamentos/medicamentos.dart';
 import 'package:navi/config/presentations/screen/home/home1_screen.dart';
+import 'package:navi/config/presentations/screen/heartrate/heartrate_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,7 +11,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,7 +20,12 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const Home1Screen(),
-      //home: AnadirRecordatoriosScreen(),
+      routes: {
+        Home1Screen.routeName: (context) => const Home1Screen(),
+        RecordatoriosScreen.routeName: (context) => const RecordatoriosScreen(),
+        AnadirRecordatoriosScreen.routeName: (context) => AnadirRecordatoriosScreen(),
+        HeartRateScreen.routeName: (context) => const HeartRateScreen(),
+      },
     );
   }
 }
@@ -67,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }

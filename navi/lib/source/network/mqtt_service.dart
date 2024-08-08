@@ -1,69 +1,63 @@
+import 'dart:async';
+
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 
 class MqttService {
-  final MqttServerClient client;
+  static final MqttServerClient _client = MqttServerClient('broker.emqx.io', '');
+  static bool _isConnected = false;
+  static bool _isConnecting = false;
 
-  MqttService(String server) : client = MqttServerClient(server, 'xyz123')
-  {
-     // Agregar la versión minima del protocolo MQTT
-    client.setProtocolV311();
+  static Future<void> initialize() async {
+    if (_isConnecting) return;
+    _isConnecting = true;
+    if (_isConnected) return;
+    _client.setProtocolV311();
+    _client.keepAlivePeriod = 20;
+    _client.port = 1883;
+    _client.connectTimeoutPeriod = 60;
+    _client.secure = false;
+    _client.logging(on: false);
+    final connMessage = MqttConnectMessage()
+        .withClientIdentifier('navixyz123')
+        .startClean()
+        .withWillQos(MqttQos.exactlyOnce);
+    _client.connectionMessage = connMessage;
+    _client.onConnected = () {
+      print('::: MQTT Client Connected :::');
+      _isConnected = true;
+    };
+    _client.onDisconnected = () {
+      print('::: MQTT Client Disconnected :::');
+      _isConnected = false;
+    };
+    _client.onSubscribed = (String topic) {
+      print('::: MQTT Client Subscribed Topic: $topic :::');
+    };
 
-    // Tiempo de espera para la conexión
-     client.keepAlivePeriod = 20;
-
-     client.port = 1883;
-
-     client.connectTimeoutPeriod = 60;
-
-     // Generar un mensaje de conexión
-      final connMessage = MqttConnectMessage()
-      .withClientIdentifier('navixyz123')
-      .startClean()
-      .withWillQos(MqttQos.exactlyOnce);
-
-
-      client.connectionMessage = connMessage;
-
-      // Agregar un listener para la conexión
-      client.onConnected = () {
-        print('::: MQTT Client Connected :::');
-      };
-
-      // Agregar un listener para la desconexión
-      client.onDisconnected = () {
-        print('::: MQTT Client Disconnected :::');
-      };
-
-      // Agregar un listener para la suscripción
-      client.onSubscribed = (String topic) {
-        print('::: MQTT Client Subscribed Topic: $topic :::');
-      };
-
-
+    // Conectar al servidor
+    try {
+      await _client.connect();
+    } catch (e) {
+      print('::: Error al conectar al servidor MQTT: $e :::');
     }
+    _isConnecting = false;
 
-  Stream<double> obtenerPulsosStream() async* {
-    try{
-      await client.connect();
-    }
-    catch(e){
-      print(e);
-      client.disconnect();
-    }
+  }
 
-    // Verificar si el cliente se conecto correctamente
-    if(client.connectionStatus?.state == MqttConnectionState.connected){
-      // Generar la suscripción al topico
-      client.subscribe('navi/pulsos', MqttQos.exactlyOnce);
+  static Stream<double> obtenerPulsosStream() async* {
+    await initialize();
+    if (!_isConnected) return;
 
+    _client.subscribe('navi/beat', MqttQos.atLeastOnce);
+    final StreamController<double> controller = StreamController<double>();
 
-      await for (final c in client.updates!) {
-        final pubMessage = c[0].payload as MqttPublishMessage;
-        final String message = MqttPublishPayload.bytesToStringAsString(pubMessage.payload.message);
+    _client.updates?.listen((List<MqttReceivedMessage<MqttMessage>> event) {
+      final MqttPublishMessage recMess = event[0].payload as MqttPublishMessage;
+      final payload = MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
+      controller.add(double.parse(payload));
+    });
 
-        yield double.tryParse(message) ?? 0;
-      }
-    }
+    yield* controller.stream;
   }
 }

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:navi/config/presentations/screen/medicamentos/editarRecordatorio.dart';
 
 const recordatorios = <Map<String, dynamic>>[
   {'label': 'Recordatorio 1'},
   {'label': 'Recordatorio 2'},
   {'label': 'Recordatorio 3'},
-  {'label': 'Recordatorio 4'},
-  {'label': 'Recordatorio 5'},
 ];
 
 class RecordatoriosScreen extends StatelessWidget {
@@ -24,8 +23,8 @@ class RecordatoriosScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Expanded(
-              child: const _RecordatoriosView(),
+            const Expanded(
+              child: _RecordatoriosView(),
             ),
             const SizedBox(height: 20), // Espacio entre la lista y el botón
             ElevatedButton(
@@ -36,7 +35,8 @@ class RecordatoriosScreen extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.teal, // Color de fondo
                 foregroundColor: Colors.white, // Color del texto
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15), // Padding del botón
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 30, vertical: 15), // Padding del botón
               ),
             ),
           ],
@@ -53,9 +53,11 @@ class _RecordatoriosView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        children: recordatorios.map((recordatorio) => _RecordatorioCard(
-          label: recordatorio['label'],
-        )).toList(),
+        children: recordatorios
+            .map((recordatorio) => _RecordatorioCard(
+                  label: recordatorio['label'],
+                ))
+            .toList(),
       ),
     );
   }
@@ -78,8 +80,8 @@ class _RecordatorioCard extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.all(16),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               label,
@@ -88,28 +90,44 @@ class _RecordatorioCard extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Align(
-              alignment: Alignment.topRight,
-              child: PopupMenuButton<String>(
-                onSelected: (value) {
-                  switch (value) {
-                    case 'editar':
-                      // Acción para editar
-                      break;
-                    case 'eliminar':
-                      // Acción para eliminar
-                      break;
-                  }
-                },
-                itemBuilder: (BuildContext context) {
-                  return {'editar', 'eliminar'}.map((String choice) {
-                    return PopupMenuItem<String>(
-                      value: choice,
-                      child: Text(choice),
+            const SizedBox(height: 10), // Espacio entre el texto y los botones
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            EditarRecordatorioScreen(nombre: label),
+                      ),
                     );
-                  }).toList();
-                },
-              ),
+                  },
+                  icon: const Icon(Icons.edit, size: 16),
+                  label: const Text('Editar'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue, // Color del botón Editar
+                    foregroundColor: Colors.white, // Color del texto
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                ElevatedButton.icon(
+                  onPressed: () {
+                    // Acción para borrar el recordatorio
+                  },
+                  icon: const Icon(Icons.delete, size: 16),
+                  label: const Text('Borrar'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 243, 33, 33), // Color del botón Borrar
+                    foregroundColor: Colors.white, // Color del texto
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  ),
+                ),
+              ],
             ),
           ],
         ),

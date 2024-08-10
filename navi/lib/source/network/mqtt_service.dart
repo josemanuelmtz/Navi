@@ -14,12 +14,13 @@ class MqttService {
     if (_isConnected) return;
     _client.setProtocolV311();
     _client.keepAlivePeriod = 20;
-    _client.port = 1883;
-    _client.connectTimeoutPeriod = 60;
+    // _client.port = 1883;
+    // _client.connectTimeoutPeriod = 60;
     _client.secure = false;
-    _client.logging(on: false);
+    _client.useWebSocket = false;
+    // _client.logging(on: false);
     final connMessage = MqttConnectMessage()
-        .withClientIdentifier('navixyz123')
+        .withClientIdentifier('navixyz123111')
         .startClean()
         .withWillQos(MqttQos.exactlyOnce);
     _client.connectionMessage = connMessage;

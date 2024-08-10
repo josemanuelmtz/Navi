@@ -3,6 +3,7 @@ import 'package:navi/config/presentations/screen/recordatorios/recordatorios.dar
 import 'package:navi/config/presentations/screen/medicamentos/medicamentos.dart';
 import 'package:navi/config/presentations/screen/home/home1_screen.dart';
 import 'package:navi/config/presentations/screen/heartrate/heartrate_screen.dart';
+import 'package:navi/config/presentations/screen/medicamentos/editarRecordatorio.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         RecordatoriosScreen.routeName: (context) => const RecordatoriosScreen(),
         AnadirRecordatoriosScreen.routeName: (context) => AnadirRecordatoriosScreen(),
         HeartRateScreen.routeName: (context) => const HeartRateScreen(),
+        EditarRecordatorioScreen.routeName: (context) => EditarRecordatorioScreen(nombre: ''),
       },
     );
   }

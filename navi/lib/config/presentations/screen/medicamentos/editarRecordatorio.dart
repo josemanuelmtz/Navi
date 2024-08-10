@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 
-class AnadirRecordatoriosScreen extends StatefulWidget {
-  static const String routeName = "anadir_recordatorios_screen";
+class EditarRecordatorioScreen extends StatefulWidget {
+  static const String routeName = "editar_recordatorio_screen";
+
+  final String nombre;
+
+  const EditarRecordatorioScreen({super.key, required this.nombre});
 
   @override
-  _AnadirRecordatoriosScreenState createState() =>
-      _AnadirRecordatoriosScreenState();
+  _EditarRecordatorioScreenState createState() =>
+      _EditarRecordatorioScreenState();
 }
 
-class _AnadirRecordatoriosScreenState
-    extends State<AnadirRecordatoriosScreen> {
-  final TextEditingController _nombreController = TextEditingController();
+class _EditarRecordatorioScreenState extends State<EditarRecordatorioScreen> {
+  late TextEditingController _nombreController;
   int _cantidad = 0;
   int _duracion = 0;
   String _duracionUnidad = 'Días';
@@ -18,24 +21,23 @@ class _AnadirRecordatoriosScreenState
   final TextEditingController _cicloController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    _nombreController = TextEditingController(text: widget.nombre);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          children: const [
-            Icon(Icons.book, color: Colors.white), // Icono de libro
-            SizedBox(width: 8), // Espacio entre el icono y el texto
-            Text('Añadir Recordatorios'),
-          ],
-        ),
-        backgroundColor: const Color(0xFF00796B),
+        title: const Text('Editar Recordatorio'),
+        backgroundColor: Colors.teal,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            // Icono de agenda encima del campo "Nombre"
             const Center(
               child: Icon(
                 Icons.event_note,
@@ -46,7 +48,7 @@ class _AnadirRecordatoriosScreenState
             const SizedBox(height: 16),
             TextField(
               controller: _nombreController,
-              maxLength: 30, // Limitar a 30 caracteres
+              maxLength: 30,
               decoration: InputDecoration(
                 labelText: 'Nombre',
                 labelStyle: const TextStyle(color: Color(0xFF00796B)),
@@ -57,7 +59,7 @@ class _AnadirRecordatoriosScreenState
                   borderSide: const BorderSide(color: Color(0xFF00796B)),
                   borderRadius: BorderRadius.circular(8.0),
                 ),
-                counterText: '', // Ocultar el contador de caracteres
+                counterText: '',
               ),
             ),
             const SizedBox(height: 16),
@@ -83,7 +85,7 @@ class _AnadirRecordatoriosScreenState
                   icon: const Icon(Icons.add),
                   onPressed: () {
                     setState(() {
-                      if (_cantidad < 50) _cantidad++; // Limitar a 50
+                      if (_cantidad < 50) _cantidad++;
                     });
                   },
                 ),
@@ -96,7 +98,7 @@ class _AnadirRecordatoriosScreenState
                   flex: 1,
                   child: TextField(
                     keyboardType: TextInputType.number,
-                    maxLength: 2, // Limitar a 2 caracteres
+                    maxLength: 2,
                     decoration: InputDecoration(
                       labelText: 'Duración',
                       labelStyle: const TextStyle(color: Color(0xFF00796B)),
@@ -107,12 +109,12 @@ class _AnadirRecordatoriosScreenState
                         borderSide: const BorderSide(color: Color(0xFF00796B)),
                         borderRadius: BorderRadius.circular(8.0),
                       ),
-                      counterText: '', // Ocultar el contador de caracteres
+                      counterText: '',
                     ),
                     onChanged: (value) {
                       setState(() {
                         _duracion = int.tryParse(value) ?? 0;
-                        if (_duracion > 99) _duracion = 99; // Limitar a 2 cifras
+                        if (_duracion > 99) _duracion = 99;
                       });
                     },
                   ),
@@ -165,7 +167,7 @@ class _AnadirRecordatoriosScreenState
                 setState(() {
                   int ciclo = int.tryParse(value) ?? 0;
                   if (ciclo < 1) ciclo = 1;
-                  if (ciclo > 24) ciclo = 24; // Limitar entre 1 y 24
+                  if (ciclo > 24) ciclo = 24;
                   _cicloController.text = ciclo.toString();
                 });
               },
@@ -176,7 +178,7 @@ class _AnadirRecordatoriosScreenState
               children: <Widget>[
                 ElevatedButton(
                   onPressed: () {
-                    // Acción para guardar
+                    // Acción para guardar cambios
                   },
                   child: const Text('Guardar'),
                   style: ElevatedButton.styleFrom(
@@ -185,14 +187,13 @@ class _AnadirRecordatoriosScreenState
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 24, vertical: 12),
+                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                   ),
                 ),
                 const SizedBox(width: 16),
                 ElevatedButton(
                   onPressed: () {
-                    // Acción para cancelar
+                    Navigator.pop(context); // Regresar sin guardar cambios
                   },
                   child: const Text('Cancelar'),
                   style: ElevatedButton.styleFrom(
@@ -201,24 +202,22 @@ class _AnadirRecordatoriosScreenState
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 24, vertical: 12),
+                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                   ),
                 ),
               ],
             ),
-            const Spacer(), // Espacio flexible para empujar el botón hacia abajo
+            const Spacer(),
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pop(context); // Regresar a la pantalla anterior
+                  Navigator.pop(context);
                 },
                 child: const Text('Regresar'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF00796B),
                   foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 30, vertical: 15),
+                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),

@@ -4,8 +4,11 @@ import 'package:navi/config/presentations/screen/medicamentos/medicamentos.dart'
 import 'package:navi/config/presentations/screen/home/home1_screen.dart';
 import 'package:navi/config/presentations/screen/heartrate/heartrate_screen.dart';
 import 'package:navi/config/presentations/screen/medicamentos/editarRecordatorio.dart';
+import 'services/mongodb_service.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await MongoDBService.connect();
   runApp(const MyApp());
 }
 

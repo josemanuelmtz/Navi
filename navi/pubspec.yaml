@@ -35,6 +35,7 @@ dependencies:
   flutter:
     sdk: flutter
   mqtt_client: 10.3.0
+  mongo_dart: ^0.10.3
 
 dev_dependencies:
   flutter_lints: ^3.0.0

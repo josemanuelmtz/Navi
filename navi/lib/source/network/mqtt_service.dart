@@ -14,11 +14,8 @@ class MqttService {
     if (_isConnected) return;
     _client.setProtocolV311();
     _client.keepAlivePeriod = 20;
-    // _client.port = 1883;
-    // _client.connectTimeoutPeriod = 60;
     _client.secure = false;
     _client.useWebSocket = false;
-    // _client.logging(on: false);
     final connMessage = MqttConnectMessage()
         .withClientIdentifier('navixyz123111')
         .startClean()
@@ -43,7 +40,6 @@ class MqttService {
       print('::: Error al conectar al servidor MQTT: $e :::');
     }
     _isConnecting = false;
-
   }
 
   static Stream<double> obtenerPulsosStream() async* {
@@ -51,6 +47,38 @@ class MqttService {
     if (!_isConnected) return;
 
     _client.subscribe('navi/beat', MqttQos.atLeastOnce);
+    final StreamController<double> controller = StreamController<double>();
+
+    _client.updates?.listen((List<MqttReceivedMessage<MqttMessage>> event) {
+      final MqttPublishMessage recMess = event[0].payload as MqttPublishMessage;
+      final payload = MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
+      controller.add(double.parse(payload));
+    });
+
+    yield* controller.stream;
+  }
+
+  static Stream<double> obtenerTemperaturaStream() async* {
+    await initialize();
+    if (!_isConnected) return;
+
+    _client.subscribe('navi/temperature', MqttQos.atLeastOnce);
+    final StreamController<double> controller = StreamController<double>();
+
+    _client.updates?.listen((List<MqttReceivedMessage<MqttMessage>> event) {
+      final MqttPublishMessage recMess = event[0].payload as MqttPublishMessage;
+      final payload = MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
+      controller.add(double.parse(payload));
+    });
+
+    yield* controller.stream;
+  }
+
+  static Stream<double> obtenerHumedadStream() async* {
+    await initialize();
+    if (!_isConnected) return;
+
+    _client.subscribe('navi/humidity', MqttQos.atLeastOnce);
     final StreamController<double> controller = StreamController<double>();
 
     _client.updates?.listen((List<MqttReceivedMessage<MqttMessage>> event) {

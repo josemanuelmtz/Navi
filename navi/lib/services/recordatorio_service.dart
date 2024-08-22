@@ -1,8 +1,8 @@
-import 'package:mongo_dart/mongo_dart.dart';
-import 'mongodb_service.dart';
+import 'package:mysql_client/mysql_client.dart';
+import 'mysql_conexion.dart';
 
 class RecordatorioService {
-  // Método para insertar un recordatorio
+  // Método para insertar recordatorios (ya proporcionado anteriormente)
   static Future<void> insertarRecordatorio({
     required String nombre,
     required int cantidad,
@@ -10,44 +10,67 @@ class RecordatorioService {
     required String duracionUnidad,
     required int ciclo,
   }) async {
+    final MySQLService mysqlService = MySQLService();
+    final conn = await mysqlService.getConnection();
+
     try {
-      var collection = MongoDBService.getCollection('registrorecordatorio');
-
-      var nuevoRecordatorio = {
-        'nombre': nombre,
-        'cantidad': cantidad,
-        'duracion': duracion,
-        'duracionUnidad': duracionUnidad,
-        'ciclo': ciclo,
-        'fechaCreacion': DateTime.now().toUtc(),
-      };
-
-      // Asegúrate de que la colección esté lista para la inserción
-      if (collection != null) {
-        await collection.insertOne(nuevoRecordatorio);
-        print('Recordatorio insertado correctamente');
-      } else {
-        print('Colección no encontrada');
-      }
+      String query = """
+      INSERT INTO recordatorio (nombre, cantidad, duracion, duracion_unidad, ciclo)
+      VALUES ('$nombre', $cantidad, $duracion, '$duracionUnidad', $ciclo)
+      """;
+      await conn.execute(query);
     } catch (e) {
-      print('Error al insertar el recordatorio: $e');
+      print("Error al insertar el recordatorio: $e");
+      throw e;
+    } finally {
+      await conn.close();
     }
   }
 
-  // Nuevo método para obtener todos los recordatorios
+  // Método para obtener todos los recordatorios
   static Future<List<Map<String, dynamic>>> obtenerRecordatorios() async {
+    final MySQLService mysqlService = MySQLService();
+    final conn = await mysqlService.getConnection();
+
+    List<Map<String, dynamic>> recordatorios = [];
+
     try {
-      var collection = MongoDBService.getCollection('registrorecordatorio');
-      if (collection != null) {
-        var recordatorios = await collection.find().toList();
-        return recordatorios;
-      } else {
-        print('Colección no encontrada');
-        return [];
+      final results = await conn.execute('SELECT * FROM recordatorio');
+
+      for (final row in results.rows) {
+        recordatorios.add({
+          'id': row.colAt(0),
+          'nombre': row.colAt(1),
+          'cantidad': row.colAt(2),
+          'duracion': row.colAt(3),
+          'duracion_unidad': row.colAt(4),
+          'ciclo': row.colAt(5),
+          'fecha_creacion': row.colAt(6),
+        });
       }
     } catch (e) {
-      print('Error al obtener los recordatorios: $e');
-      return [];
+      print("Error al obtener los recordatorios: $e");
+      throw e;
+    } finally {
+      await conn.close();
+    }
+
+    return recordatorios;
+  }
+
+  // Método para eliminar un recordatorio
+  static Future<void> eliminarRecordatorio(int id) async {
+    final MySQLService mysqlService = MySQLService();
+    final conn = await mysqlService.getConnection();
+
+    try {
+      //await conn.execute('DELETE FROM recordatorio WHERE id = ?', [id]);
+    } catch (e) {
+      print("Error al eliminar el recordatorio: $e");
+      throw e;
+    } finally {
+      await conn.close();
     }
   }
+
 }

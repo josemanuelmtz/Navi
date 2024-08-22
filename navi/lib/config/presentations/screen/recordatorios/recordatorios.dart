@@ -30,6 +30,7 @@ class RecordatoriosScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   var recordatorio = snapshot.data![index];
                   return _RecordatorioCard(
+                    id: recordatorio['id'] as int,
                     label: recordatorio['nombre'] ?? 'Sin nombre',
                   );
                 },
@@ -43,9 +44,11 @@ class RecordatoriosScreen extends StatelessWidget {
 }
 
 class _RecordatorioCard extends StatelessWidget {
+  final int id; // Añadido para manejar el id del recordatorio
   final String label;
 
   const _RecordatorioCard({
+    required this.id, // Añadido para recibir el id
     required this.label,
   });
 
@@ -75,7 +78,7 @@ class _RecordatorioCard extends StatelessWidget {
               children: [
                 ElevatedButton.icon(
                   onPressed: () {
-                    // Acción para editar
+                    // Acción para editar (no implementada en este código)
                   },
                   icon: const Icon(Icons.edit, size: 16),
                   label: const Text('Editar'),
@@ -87,8 +90,19 @@ class _RecordatorioCard extends StatelessWidget {
                 ),
                 const SizedBox(width: 10),
                 ElevatedButton.icon(
-                  onPressed: () {
+                  onPressed: () async {
                     // Acción para borrar el recordatorio
+                    try {
+                      await RecordatorioService.eliminarRecordatorio(id);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Recordatorio eliminado')),
+                      );
+                      // Puedes actualizar la UI si es necesario
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Error al eliminar el recordatorio')),
+                      );
+                    }
                   },
                   icon: const Icon(Icons.delete, size: 16),
                   label: const Text('Borrar'),

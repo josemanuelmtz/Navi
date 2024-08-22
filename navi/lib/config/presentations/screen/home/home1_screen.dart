@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:navi/config/presentations/screen/recordatorios/recordatorios.dart';
-import 'package:navi/config/presentations/screen/medicamentos/medicamentos.dart';
+import 'package:navi/config/presentations/screen/medicamentos/añadirRecordatorio.dart';
 import 'package:navi/config/presentations/screen/heartrate/heartrate_screen.dart';
 
 class Home1Screen extends StatelessWidget {

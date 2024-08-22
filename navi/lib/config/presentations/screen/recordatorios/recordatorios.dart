@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:navi/config/presentations/screen/medicamentos/editarRecordatorio.dart';
-
-const recordatorios = <Map<String, dynamic>>[
-  {'label': 'Recordatorio 1'},
-  {'label': 'Recordatorio 2'},
-  {'label': 'Recordatorio 3'},
-];
+import 'package:navi/services/recordatorio_service.dart';
 
 class RecordatoriosScreen extends StatelessWidget {
   static const String routeName = "recordatorios_screen";
@@ -21,43 +15,28 @@ class RecordatoriosScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            const Expanded(
-              child: _RecordatoriosView(),
-            ),
-            const SizedBox(height: 20), // Espacio entre la lista y el botón
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context); // Regresar a la pantalla anterior
-              },
-              child: const Text('Regresar'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.teal, // Color de fondo
-                foregroundColor: Colors.white, // Color del texto
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 30, vertical: 15), // Padding del botón
-              ),
-            ),
-          ],
+        child: FutureBuilder<List<Map<String, dynamic>>>(
+          future: RecordatorioService.obtenerRecordatorios(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return const Center(child: Text('Error al cargar los recordatorios'));
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return const Center(child: Text('No hay recordatorios'));
+            } else {
+              return ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  var recordatorio = snapshot.data![index];
+                  return _RecordatorioCard(
+                    label: recordatorio['nombre'] ?? 'Sin nombre',
+                  );
+                },
+              );
+            }
+          },
         ),
-      ),
-    );
-  }
-}
-
-class _RecordatoriosView extends StatelessWidget {
-  const _RecordatoriosView();
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: recordatorios
-            .map((recordatorio) => _RecordatorioCard(
-                  label: recordatorio['label'],
-                ))
-            .toList(),
       ),
     );
   }
@@ -96,21 +75,14 @@ class _RecordatorioCard extends StatelessWidget {
               children: [
                 ElevatedButton.icon(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            EditarRecordatorioScreen(nombre: label),
-                      ),
-                    );
+                    // Acción para editar
                   },
                   icon: const Icon(Icons.edit, size: 16),
                   label: const Text('Editar'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue, // Color del botón Editar
                     foregroundColor: Colors.white, // Color del texto
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                   ),
                 ),
                 const SizedBox(width: 10),
@@ -123,8 +95,7 @@ class _RecordatorioCard extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 243, 33, 33), // Color del botón Borrar
                     foregroundColor: Colors.white, // Color del texto
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                   ),
                 ),
               ],

@@ -18,8 +18,7 @@ class MqttService {
     _client.useWebSocket = false;
     final connMessage = MqttConnectMessage()
         .withClientIdentifier('navixyz123111')
-        .startClean()
-        .withWillQos(MqttQos.exactlyOnce);
+        .startClean();
     _client.connectionMessage = connMessage;
     _client.onConnected = () {
       print('::: MQTT Client Connected :::');
@@ -52,6 +51,7 @@ class MqttService {
     _client.updates?.listen((List<MqttReceivedMessage<MqttMessage>> event) {
       final MqttPublishMessage recMess = event[0].payload as MqttPublishMessage;
       final payload = MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
+      print(payload);
       controller.add(double.parse(payload));
     });
 
@@ -62,7 +62,7 @@ class MqttService {
     await initialize();
     if (!_isConnected) return;
 
-    _client.subscribe('navi/temperature', MqttQos.atLeastOnce);
+    _client.subscribe('navi/temp', MqttQos.atLeastOnce);  
     final StreamController<double> controller = StreamController<double>();
 
     _client.updates?.listen((List<MqttReceivedMessage<MqttMessage>> event) {
@@ -78,7 +78,7 @@ class MqttService {
     await initialize();
     if (!_isConnected) return;
 
-    _client.subscribe('navi/humidity', MqttQos.atLeastOnce);
+    _client.subscribe('navi/hum', MqttQos.atLeastOnce);
     final StreamController<double> controller = StreamController<double>();
 
     _client.updates?.listen((List<MqttReceivedMessage<MqttMessage>> event) {

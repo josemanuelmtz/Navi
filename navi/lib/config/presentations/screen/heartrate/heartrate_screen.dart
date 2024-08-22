@@ -13,7 +13,7 @@ class HeartRateScreen extends StatefulWidget {
 class _HeartRateScreenState extends State<HeartRateScreen>
     with SingleTickerProviderStateMixin {
   double heartRate = 75.0; // Ritmo cardíaco simulado
-  double temperature = 36.5; // Temperatura simulada
+  double temperature = 16.5; // Temperatura simulada
   double humidity = 50.0; // Humedad simulada
 
   late AnimationController _controller;
@@ -28,7 +28,7 @@ class _HeartRateScreenState extends State<HeartRateScreen>
     // Configuración del controlador de animación
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 2000),
+      duration: const Duration(milliseconds: 1000),
     )..repeat(reverse: true);
 
     // Configuración de la animación para el ritmo cardíaco
@@ -79,7 +79,7 @@ class _HeartRateScreenState extends State<HeartRateScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Ritmo Cardiaco, Temperatura y Humedad'),
+        title: const Text('Dashboard'),
         centerTitle: true,
         backgroundColor: Colors.teal,
       ),

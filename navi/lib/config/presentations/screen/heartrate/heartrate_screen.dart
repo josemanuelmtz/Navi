@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:navi/source/network/mqtt_service.dart';
 
@@ -20,6 +22,10 @@ class _HeartRateScreenState extends State<HeartRateScreen>
   late Animation<double> _animation;
   late Animation<double> _temperatureAnimation;
   late Animation<double> _humidityAnimation;
+
+  late StreamSubscription<double> _heartRateSubscription;
+  late StreamSubscription<double> _temperatureSubscription;
+  late StreamSubscription<double> _humiditySubscription;
 
   @override
   void initState() {
@@ -46,19 +52,19 @@ class _HeartRateScreenState extends State<HeartRateScreen>
       CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );
 
-    MqttService.obtenerPulsosStream().listen((event) {
+    _heartRateSubscription = MqttService.obtenerPulsosStream().listen((event) {
       setState(() {
         heartRate = event;
       });
     });
 
-    MqttService.obtenerTemperaturaStream().listen((event) {
+    _temperatureSubscription = MqttService.obtenerTemperaturaStream().listen((event) {
       setState(() {
         temperature = event;
       });
     });
 
-    MqttService.obtenerHumedadStream().listen((event) {
+    _humiditySubscription = MqttService.obtenerHumedadStream().listen((event) {
       setState(() {
         humidity = event;
       });
@@ -69,6 +75,11 @@ class _HeartRateScreenState extends State<HeartRateScreen>
   void dispose() {
     _controller.dispose(); // Disponer del controlador cuando no se use más
     super.dispose();
+
+    print('::: Cerrando suscripciones :::');
+    _heartRateSubscription.cancel();
+    _temperatureSubscription.cancel();
+    _humiditySubscription.cancel();
   }
 
   Color _getTemperatureColor(double temperature) {

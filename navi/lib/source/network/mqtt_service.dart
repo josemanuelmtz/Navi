@@ -18,11 +18,11 @@ class MqttService {
     _client.useWebSocket = false;
     final connMessage = MqttConnectMessage()
         .withClientIdentifier('navixyz123111')
-        .startClean()
-        .withWillQos(MqttQos.exactlyOnce);
+        .startClean();
     _client.connectionMessage = connMessage;
     _client.onConnected = () {
       print('::: MQTT Client Connected :::');
+      _suscribirseATopicos();
       _isConnected = true;
     };
     _client.onDisconnected = () {
@@ -42,17 +42,23 @@ class MqttService {
     _isConnecting = false;
   }
 
+  static void _suscribirseATopicos() {
+    _client.subscribe('navi/beat', MqttQos.atLeastOnce);
+    _client.subscribe('navi/temperature', MqttQos.atLeastOnce);
+    _client.subscribe('navi/humidity', MqttQos.atLeastOnce);
+  }
+
   static Stream<double> obtenerPulsosStream() async* {
     await initialize();
-    if (!_isConnected) return;
-
-    _client.subscribe('navi/beat', MqttQos.atLeastOnce);
     final StreamController<double> controller = StreamController<double>();
 
     _client.updates?.listen((List<MqttReceivedMessage<MqttMessage>> event) {
-      final MqttPublishMessage recMess = event[0].payload as MqttPublishMessage;
-      final payload = MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
-      controller.add(double.parse(payload));
+      final MqttReceivedMessage<MqttMessage> message = event[0];
+      if(message.topic == 'navi/beat') {
+        final MqttPublishMessage recMess = event[0].payload as MqttPublishMessage;
+        final payload = MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
+        controller.add(double.tryParse(payload) ?? 0);
+      }
     });
 
     yield* controller.stream;
@@ -60,15 +66,17 @@ class MqttService {
 
   static Stream<double> obtenerTemperaturaStream() async* {
     await initialize();
-    if (!_isConnected) return;
 
-    _client.subscribe('navi/temperature', MqttQos.atLeastOnce);
+    // _client.subscribe('navi/temperature', MqttQos.atLeastOnce);
     final StreamController<double> controller = StreamController<double>();
 
     _client.updates?.listen((List<MqttReceivedMessage<MqttMessage>> event) {
-      final MqttPublishMessage recMess = event[0].payload as MqttPublishMessage;
-      final payload = MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
-      controller.add(double.parse(payload));
+      final MqttReceivedMessage<MqttMessage> message = event[0];
+      if(message.topic == 'navi/temperature') {
+        final MqttPublishMessage recMess = event[0].payload as MqttPublishMessage;
+        final payload = MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
+        controller.add(double.tryParse(payload) ?? 0);
+      }
     });
 
     yield* controller.stream;
@@ -76,15 +84,17 @@ class MqttService {
 
   static Stream<double> obtenerHumedadStream() async* {
     await initialize();
-    if (!_isConnected) return;
 
-    _client.subscribe('navi/humidity', MqttQos.atLeastOnce);
+    // _client.subscribe('navi/humidity', MqttQos.atLeastOnce);
     final StreamController<double> controller = StreamController<double>();
 
     _client.updates?.listen((List<MqttReceivedMessage<MqttMessage>> event) {
-      final MqttPublishMessage recMess = event[0].payload as MqttPublishMessage;
-      final payload = MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
-      controller.add(double.parse(payload));
+      final MqttReceivedMessage<MqttMessage> message = event[0];
+      if(message.topic == 'navi/humidity') {
+        final MqttPublishMessage recMess = event[0].payload as MqttPublishMessage;
+        final payload = MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
+        controller.add(double.tryParse(payload) ?? 0);
+      }
     });
 
     yield* controller.stream;

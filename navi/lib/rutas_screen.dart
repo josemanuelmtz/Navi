@@ -1,5 +1,5 @@
 export 'package:navi/config/presentations/screen/home/home1_screen.dart';
-export 'package:navi/config/presentations/screen/medicamentos/medicamentos.dart';
+export 'package:navi/config/presentations/screen/medicamentos/anadirRecordatorio.dart';
 export 'package:navi/config/presentations/screen/medicamentos/editarRecordatorio.dart';
 export 'package:navi/config/presentations/screen/recordatorios/recordatorios.dart';
 

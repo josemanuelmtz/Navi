@@ -34,7 +34,7 @@ class _HeartRateScreenState extends State<HeartRateScreen>
     // Configuración del controlador de animación
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 2000),
+      duration: const Duration(milliseconds: 1000),
     )..repeat(reverse: true);
 
     // Configuración de la animación para el ritmo cardíaco
@@ -90,7 +90,7 @@ class _HeartRateScreenState extends State<HeartRateScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Ritmo Cardiaco, Temperatura y Humedad'),
+        title: const Text('DashBoard'),
         centerTitle: true,
         backgroundColor: Colors.teal,
       ),

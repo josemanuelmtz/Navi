@@ -57,4 +57,20 @@ class RecordatorioService {
 
     return recordatorios;
   }
+
+  // Método para eliminar un recordatorio
+  static Future<void> eliminarRecordatorio(int id) async {
+    final MySQLService mysqlService = MySQLService();
+    final conn = await mysqlService.getConnection();
+
+    try {
+      String query = 'DELETE FROM recordatorio WHERE id = :id';
+      await conn.execute(query, {'id': id});
+    } catch (e) {
+      print("Error al eliminar el recordatorio: $e");
+      throw e;
+    } finally {
+      await conn.close();
+    }
+  }
 }

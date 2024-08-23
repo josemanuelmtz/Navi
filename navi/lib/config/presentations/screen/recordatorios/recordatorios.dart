@@ -31,6 +31,11 @@ class RecordatoriosScreen extends StatelessWidget {
                   var recordatorio = snapshot.data![index];
                   return _RecordatorioCard(
                     label: recordatorio['nombre'] ?? 'Sin nombre',
+                    cantidad: recordatorio['cantidad'] ?? 0,
+                    duracion: recordatorio['duracion'] ?? 0,
+                    duracionUnidad: recordatorio['duracion_unidad'] ?? 'N/A',
+                    ciclo: recordatorio['ciclo'] ?? 0,
+                    fechaCreacion: recordatorio['fecha_creacion'] ?? 'N/A',
                   );
                 },
               );
@@ -44,9 +49,19 @@ class RecordatoriosScreen extends StatelessWidget {
 
 class _RecordatorioCard extends StatelessWidget {
   final String label;
+  final int cantidad;
+  final int duracion;
+  final String duracionUnidad;
+  final int ciclo;
+  final String fechaCreacion;
 
   const _RecordatorioCard({
     required this.label,
+    required this.cantidad,
+    required this.duracion,
+    required this.duracionUnidad,
+    required this.ciclo,
+    required this.fechaCreacion,
   });
 
   @override
@@ -69,23 +84,27 @@ class _RecordatorioCard extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 10), // Espacio entre el texto y los botones
+            const SizedBox(height: 10),
+            Text(
+              'Cantidad: $cantidad',
+              style: const TextStyle(fontSize: 16),
+            ),
+            Text(
+              'Duración: $duracion $duracionUnidad',
+              style: const TextStyle(fontSize: 16),
+            ),
+            Text(
+              'Ciclo: $ciclo',
+              style: const TextStyle(fontSize: 16),
+            ),
+            Text(
+              'Fecha de Creación: $fechaCreacion',
+              style: const TextStyle(fontSize: 16),
+            ),
+            const SizedBox(height: 10), // Espacio entre la información y los botones
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                ElevatedButton.icon(
-                  onPressed: () {
-                    // Acción para editar
-                  },
-                  icon: const Icon(Icons.edit, size: 16),
-                  label: const Text('Editar'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue, // Color del botón Editar
-                    foregroundColor: Colors.white, // Color del texto
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                  ),
-                ),
-                const SizedBox(width: 10),
                 ElevatedButton.icon(
                   onPressed: () {
                     // Acción para borrar el recordatorio

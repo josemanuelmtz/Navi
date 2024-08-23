@@ -2,7 +2,7 @@ import 'package:mysql_client/mysql_client.dart';
 import 'mysql_conexion.dart';
 
 class RecordatorioService {
-  // Método para insertar recordatorios (ya proporcionado anteriormente)
+  // Método para insertar recordatorios
   static Future<void> insertarRecordatorio({
     required String nombre,
     required int cantidad,
@@ -41,10 +41,10 @@ class RecordatorioService {
         recordatorios.add({
           'id': row.colAt(0),
           'nombre': row.colAt(1),
-          'cantidad': row.colAt(2),
-          'duracion': row.colAt(3),
+          'cantidad': int.tryParse(row.colAt(2).toString()) ?? 0,
+          'duracion': int.tryParse(row.colAt(3).toString()) ?? 0,
           'duracion_unidad': row.colAt(4),
-          'ciclo': row.colAt(5),
+          'ciclo': int.tryParse(row.colAt(5).toString()) ?? 0,
           'fecha_creacion': row.colAt(6),
         });
       }
@@ -57,20 +57,4 @@ class RecordatorioService {
 
     return recordatorios;
   }
-
-  // Método para eliminar un recordatorio
-  static Future<void> eliminarRecordatorio(int id) async {
-    final MySQLService mysqlService = MySQLService();
-    final conn = await mysqlService.getConnection();
-
-    try {
-      //await conn.execute('DELETE FROM recordatorio WHERE id = ?', [id]);
-    } catch (e) {
-      print("Error al eliminar el recordatorio: $e");
-      throw e;
-    } finally {
-      await conn.close();
-    }
-  }
-
 }

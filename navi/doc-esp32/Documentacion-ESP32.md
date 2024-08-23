@@ -7,11 +7,17 @@ Este proyecto utiliza un ESP32 como microcontrolador principal, al que se le han
 ### Componentes Utilizados
 
 - **ESP32**: Microcontrolador principal que gestiona las conexiones WiFi, el procesamiento de datos y la comunicación MQTT.
+![Texto alternativo](images/imagen1.png)
 - **Sensor de Ritmo Cardíaco (HW-827)**: Conectado al pin 34 del ESP32, mide el ritmo cardíaco del usuario.
+![Texto alternativo](images/imagen2.png)
 - **DHT11**: Sensor de temperatura y humedad conectado al pin 4 del ESP32.
+![Texto alternativo](images/imagen3.png)
 - **Pantalla OLED (128x64, controlador SSD1306)**: Conectada vía I2C (SDA y SCL), muestra los valores de BPM, temperatura y humedad en tiempo real.
+![Texto alternativo](images/imagen4.png)
 - **Buzzer**: Conectado al pin 14 del ESP32, emite una alerta sonora si el ritmo cardíaco excede los 100 BPM.
+![Texto alternativo](images/imagen5.png)
 - **LED (opcional)**: Conectado al pin 13, parpadea con cada latido detectado.
+![Texto alternativo](images/imagen6.png)
 
 ### Esquema de Conexiones
 

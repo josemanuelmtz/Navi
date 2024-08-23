@@ -54,7 +54,7 @@ El código fuente desarrollado para este proyecto se encuentra en el archivo `ES
 
 ---
 
-Para más detalles sobre el código o cómo configurar el hardware, consulta el archivo `README.md` en la raíz del repositorio o contacta con el equipo de desarrollo.
+Para más detalles sobre el código o cómo configurar el hardware, consulta el archivo [README.md](https://github.com/josemanuelmtz/Navi/blob/main/README.md) en la raíz del repositorio o contacta con el equipo de desarrollo.
 
-[Ir a archivo 2](https://github.com/josemanuelmtz/Navi/blob/main/README.md)
+
 

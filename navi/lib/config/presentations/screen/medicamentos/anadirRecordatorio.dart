@@ -17,6 +17,55 @@ class _AnadirRecordatoriosScreenState extends State<AnadirRecordatoriosScreen> {
   final List<String> _unidades = ['Días', 'Semanas', 'Meses', 'Años'];
   final TextEditingController _cicloController = TextEditingController();
 
+  void _guardarRecordatorio() {
+    // Validaciones de campos vacíos
+    if (_nombreController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('El campo "Nombre" no puede estar vacío')),
+      );
+      return;
+    }
+
+    if (_cantidad == 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('La "Cantidad/Dosis" debe ser mayor a 0')),
+      );
+      return;
+    }
+
+    if (_duracion == 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('La "Duración" debe ser mayor a 0')),
+      );
+      return;
+    }
+
+    if (_cicloController.text.isEmpty || int.tryParse(_cicloController.text)! < 1) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('El campo "Ciclo (Horas)" no puede estar vacío y debe ser mayor a 0')),
+      );
+      return;
+    }
+
+    // Si todo es válido, proceder con la inserción
+    RecordatorioService.insertarRecordatorio(
+      nombre: _nombreController.text,
+      cantidad: _cantidad,
+      duracion: _duracion,
+      duracionUnidad: _duracionUnidad,
+      ciclo: int.tryParse(_cicloController.text) ?? 0,
+    ).then((_) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Recordatorio guardado exitosamente')),
+      );
+      Navigator.pop(context); // Regresa a la pantalla anterior
+    }).catchError((error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Error al guardar el recordatorio')),
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -177,26 +226,7 @@ class _AnadirRecordatoriosScreenState extends State<AnadirRecordatoriosScreen> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   ElevatedButton(
-                    onPressed: () {
-                      RecordatorioService.insertarRecordatorio(
-                        nombre: _nombreController.text,
-                        cantidad: _cantidad,
-                        duracion: _duracion,
-                        duracionUnidad: _duracionUnidad,
-                        ciclo: int.tryParse(_cicloController.text) ?? 0,
-                      ).then((_) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                              content: Text('Recordatorio guardado exitosamente')),
-                        );
-                        Navigator.pop(context); // Regresa a la pantalla anterior
-                      }).catchError((error) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                              content: Text('Error al guardar el recordatorio')),
-                        );
-                      });
-                    },
+                    onPressed: _guardarRecordatorio,
                     child: const Text('Guardar'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF00796B),
@@ -232,15 +262,15 @@ class _AnadirRecordatoriosScreenState extends State<AnadirRecordatoriosScreen> {
                   onPressed: () {
                     Navigator.pop(context); // Regresar a la pantalla anterior
                   },
-                  child: const Text('Regresar'),
+                  child: const Text('Volver al Inicio'),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF00796B),
+                    backgroundColor: Colors.blue,
                     foregroundColor: Colors.white,
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24, vertical: 12),
                   ),
                 ),
               ),

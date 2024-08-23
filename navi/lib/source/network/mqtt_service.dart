@@ -44,8 +44,8 @@ class MqttService {
 
   static void _suscribirseATopicos() {
     _client.subscribe('navi/beat', MqttQos.atLeastOnce);
-    _client.subscribe('navi/temperature', MqttQos.atLeastOnce);
-    _client.subscribe('navi/humidity', MqttQos.atLeastOnce);
+    _client.subscribe('navi/temp', MqttQos.atLeastOnce);
+    _client.subscribe('navi/hum', MqttQos.atLeastOnce);
   }
 
   static Stream<double> obtenerPulsosStream() async* {
@@ -72,7 +72,7 @@ class MqttService {
 
     _client.updates?.listen((List<MqttReceivedMessage<MqttMessage>> event) {
       final MqttReceivedMessage<MqttMessage> message = event[0];
-      if(message.topic == 'navi/temperature') {
+      if(message.topic == 'navi/temp') {
         final MqttPublishMessage recMess = event[0].payload as MqttPublishMessage;
         final payload = MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
         controller.add(double.tryParse(payload) ?? 0);
@@ -90,7 +90,7 @@ class MqttService {
 
     _client.updates?.listen((List<MqttReceivedMessage<MqttMessage>> event) {
       final MqttReceivedMessage<MqttMessage> message = event[0];
-      if(message.topic == 'navi/humidity') {
+      if(message.topic == 'navi/hum') {
         final MqttPublishMessage recMess = event[0].payload as MqttPublishMessage;
         final payload = MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
         controller.add(double.tryParse(payload) ?? 0);

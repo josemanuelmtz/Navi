@@ -7,17 +7,17 @@ Este proyecto utiliza un ESP32 como microcontrolador principal, al que se le han
 ### Componentes Utilizados
 
 - **ESP32**: Microcontrolador principal que gestiona las conexiones WiFi, el procesamiento de datos y la comunicación MQTT .
-![Texto alternativo](images/imagen1.png)
+<img src="images/imagen1.png" alt="Texto alternativo" width="200"/>
 - **Sensor de Ritmo Cardíaco (HW-827)**: Conectado al pin 34 del ESP32, mide el ritmo cardíaco del usuario.
-![Texto alternativo](images/imagen2.png)
+<img src="images/imagen2.png" alt="Texto alternativo" width="200"/>
 - **DHT11**: Sensor de temperatura y humedad conectado al pin 4 del ESP32.
-![Texto alternativo](images/imagen3.png)
+<img src="images/imagen3.png" alt="Texto alternativo" width="200"/>
 - **Pantalla OLED (128x64, controlador SSD1306)**: Conectada vía I2C (SDA y SCL), muestra los valores de BPM, temperatura y humedad en tiempo real.
-![Texto alternativo](images/imagen4.png)
+<img src="images/image.png" alt="Texto alternativo" width="200"/>
 - **Buzzer**: Conectado al pin 14 del ESP32, emite una alerta sonora si el ritmo cardíaco excede los 100 BPM.
-![Texto alternativo](images/imagen5.png)
+<img src="images/imagen4.png" alt="Texto alternativo" width="200"/>
 - **LED (opcional)**: Conectado al pin 13, parpadea con cada latido detectado.
-![Texto alternativo](images/imagen6.png)
+<img src="images/imagen5.png" alt="Texto alternativo" width="200"/>
 
 ### Esquema de Conexiones
 
@@ -54,4 +54,7 @@ El código fuente desarrollado para este proyecto se encuentra en el archivo `ES
 
 ---
 
-Para más detalles sobre el código o cómo configurar el hardware, consulta el archivo `README.md` en la raíz del repositorio o contacta con el equipo de desarrollo.
+Para más detalles sobre el código o cómo configurar el hardware, consulta el archivo [README.md](https://github.com/josemanuelmtz/Navi/blob/main/README.md) en la raíz del repositorio o contacta con el equipo de desarrollo.
+
+
+

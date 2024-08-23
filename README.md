@@ -82,5 +82,11 @@ Aquí se detalla la implementación del microcontrolador ESP32 en el proyecto, i
 
 En esta sección se cubre la creación y personalización del dashboard para la visualización de datos. Se incluye información sobre las tecnologías utilizadas y cómo se integran los diferentes módulos para mostrar la información en tiempo real.
 
+# Aplicación Navi 
+
+A continuación, agregamos el link para observar el video donde explicamos como funciona la aplicación y presentamos detalles.
+
+## [Video](https://youtu.be/kEZiGtR2kCQ?si=PU9Wn-YxKiIhxpJg)
+
 
 Gracias por su atención. Para cualquier duda o sugerencia, no dude en contactar con el equipo de desarrollo

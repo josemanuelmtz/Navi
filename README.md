@@ -78,7 +78,7 @@ En esta sección se documentan los problemas y soluciones relacionadas con la in
 
 Aquí se detalla la implementación del microcontrolador ESP32 en el proyecto, incluyendo la configuración de los pines, la conexión de sensores y el código fuente utilizado para controlar el hardware.
 
-## [Dashboard](ruta/a/dashboard/README.md)
+## [Dashboard](https://github.com/josemanuelmtz/Navi/blob/main/navi/doc-dashboard/Documentacion-Dashboard.md)
 
 En esta sección se cubre la creación y personalización del dashboard para la visualización de datos. Se incluye información sobre las tecnologías utilizadas y cómo se integran los diferentes módulos para mostrar la información en tiempo real.
 

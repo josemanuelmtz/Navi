@@ -42,7 +42,7 @@ El software desarrollado incluye las siguientes funcionalidades:
 
 ### Código Fuente
 
-El código fuente desarrollado para este proyecto se encuentra en el archivo `ESP32.ino`. A continuación se incluye una breve descripción de las principales secciones del código:
+El código fuente desarrollado para este proyecto se encuentra en el archivo [README.md](https://github.com/josemanuelmtz/Navi/blob/main/navi/ESP32/ESP32.ino) . A continuación se incluye una breve descripción de las principales secciones del código:
 
 - **setup_wifi()**: Configura y conecta el ESP32 a la red WiFi.
 - **setup()**: Inicializa los sensores, la pantalla OLED, y configura la conexión al broker MQTT.

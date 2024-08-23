@@ -62,12 +62,25 @@ Para seguir el desarrollo del proyecto y revisar el progreso de las tareas, pued
 - Alan Manuel Mendoza Arredondo
 ---
 
+# Documentación
+
+A continuación, se presentan las secciones de la documentación relacionadas con los distintos componentes del proyecto. Haz clic en cada uno de los temas para acceder al `README.md` correspondiente.
+
+## [Flutter](https://github.com/josemanuelmtz/Navi/blob/main/navi/doc-appFlutter/Documentacion-Flutter.md)
+
+Este módulo cubre la implementación de la aplicación utilizando el framework Flutter, incluyendo la configuración del entorno, la estructura del proyecto y las funcionalidades desarrolladas.
+
+## [Broker Flutter](https://github.com/josemanuelmtz/Navi/blob/main/navi/doc-brokerFlutter/Documentacion-Broker.md)
+
+En esta sección se documentan los problemas y soluciones relacionadas con la integración de Flutter en el proyecto. Se incluye un análisis detallado de los errores comunes y cómo solucionarlos.
+
+## [ESP32](https://github.com/josemanuelmtz/Navi/blob/main/navi/doc-esp32/Documentacion-ESP32.md)
+
+Aquí se detalla la implementación del microcontrolador ESP32 en el proyecto, incluyendo la configuración de los pines, la conexión de sensores y el código fuente utilizado para controlar el hardware.
+
+## [Dashboard](ruta/a/dashboard/README.md)
+
+En esta sección se cubre la creación y personalización del dashboard para la visualización de datos. Se incluye información sobre las tecnologías utilizadas y cómo se integran los diferentes módulos para mostrar la información en tiempo real.
+
+
 Gracias por su atención. Para cualquier duda o sugerencia, no dude en contactar con el equipo de desarrollo
-
-## Documentación
-
-## Flutter
-
-## Circuito
-
-## Dashboard

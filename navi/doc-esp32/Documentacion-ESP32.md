@@ -6,7 +6,7 @@ Este proyecto utiliza un ESP32 como microcontrolador principal, al que se le han
 
 ### Componentes Utilizados
 
-- **ESP32**: Microcontrolador principal que gestiona las conexiones WiFi, el procesamiento de datos y la comunicación MQTT.
+- **ESP32**: Microcontrolador principal que gestiona las conexiones WiFi, el procesamiento de datos y la comunicación MQTT .
 ![Texto alternativo](images/imagen1.png)
 - **Sensor de Ritmo Cardíaco (HW-827)**: Conectado al pin 34 del ESP32, mide el ritmo cardíaco del usuario.
 ![Texto alternativo](images/imagen2.png)
